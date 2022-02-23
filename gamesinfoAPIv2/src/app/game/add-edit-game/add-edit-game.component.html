@@ -1,0 +1,35 @@
+<form>
+    <div class="mb-3">
+        <label for="gameName" class="form-label">Game Name</label>
+        <input type="text" class="form-control" [(ngModel)]="gameName" name="gameName">
+    </div>
+    <div class="mb-3">
+        <label for="gaemDescription" class="form-label">Game Description</label>
+        <input type="text" class="form-control" [(ngModel)]="gameDescription" name="gaemDescription">
+    </div>
+    <div class="mb-3">
+        <label for="gameCategoryId" class="form-label">Game Category</label>
+        <input type="text" class="form-control" name="gameCategoryId" [(ngModel)]="gameCategoryId" 
+        *ngIf="game.id!=0" disabled>
+        <select class="form-control" name="gameCategoryId" id="gameCategoryId" [(ngModel)]
+        ="gameCategoryId" *ngIf="game.id==0">
+            <option *ngFor="let category  of gameCategoryList$|async" [value]="category.id">{{category.categoryName}}</option>
+    </select>
+    </div>
+    <div class="mb-3">
+        <label for="gameStudioId" class="form-label">Studio</label>
+        <select class="form-control" name="gameStudioId" id="gameStudioId" [(ngModel)]
+        ="gameStudioId">
+            <option *ngFor="let studio of gameStudioList$|async" [value]="studio.id">
+                {{studio.studioName}}
+            </option>
+        </select>
+    </div>
+    <button (click)="addGame()" *ngIf="game.id==0" class="btn btn-primary">
+        Add
+    </button>
+    <button (click)="updateGames()" *ngIf="game.id!=0" class="btn btn-primary">
+        Update
+    </button>
+    
+</form>
